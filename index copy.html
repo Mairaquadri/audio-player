@@ -119,7 +119,7 @@
     }
     
     audio {
-        /* display: none; */
+        display: none;
     }
     
     .girl {
@@ -168,7 +168,7 @@
         </div>
         <div class="song">
             <audio controls id="audio" onended="m()">
-        <source src="./music/drive1.mp3" type="audio/mpeg" id="source ">
+        <source src="./music/drive1.mp3" type="audio/mpeg">
     </audio>
             <!-- <audio src="./music/drive1.mp3" onended="m()" id="source"></audio> -->
             <input type="range" value="0" id="progress">
@@ -198,9 +198,7 @@
         var sec = document.getElementById("sec")
         var time = document.getElementById("time")
         var progress = document.getElementById("progress")
-        var pre = document.getElementById("pre")
-        var next = document.getElementById("next")
-        var source = document.getElementById("source ")
+
 
         // function to play music starts
         function song_play() {
@@ -229,12 +227,12 @@
 
         // function to move progress bar according to song duration starts
         function bar() {
-            progress.max = audio.duration
-            progress.value = audio.currentTime
+            progress.max = music.duration
+            progress.value = music.currentTime
 
         }
         setInterval(() => {
-            progress.value = audio.currentTime
+            progress.value = music.currentTime
         }, 500)
         progress.onclick = function() {
                 audio.currentTime = progress.value
@@ -258,12 +256,9 @@
         // function to rotate image ends
 
         //function to stop image rotation,pause to play button and stop timing srart
-
-        function m() {
-            play.classList.add("fa-play")
+        music.onended = function() {
             girl_pro.style.animationPlayState = 'paused';
-
-            play.classList.remove("fa-pause")
+            play.classList.replace("fa-pause", "fa-play")
             toggleInterval()
         }
 
@@ -272,7 +267,7 @@
 
 
         // function to start and stop watch on toggle start
-        var intervalId;
+        // var intervalId;
         var isIntervalRunning = false;
 
         nums = 1
@@ -355,9 +350,9 @@
         }]
 
         const loadsongs = (songs) => {
-            song_name.textContent = songs.sn
+            song_name.innerHTML = songs.sn
             artist_name.textContent = songs.an
-            img.src = "images/" + songs.image + ".jpg"
+            girl_pro.src = "images/" + songs.image + ".jpg"
             music.src = ("music/" + songs.name + ".mp3")
 
         }
@@ -371,9 +366,8 @@
 
 
         // function to change  next songs starts
+        next.onclick = function() {
 
-
-        const nextSong = () => {
             songsIndex = (songsIndex + 1) % songs.length
             loadsongs(songs[songsIndex])
             play.classList.remove("fa-play")
@@ -386,15 +380,13 @@
 
         }
 
-
-
-        next.addEventListener("click", nextSong)
-
         // function to change  next songs starts
 
         // function to change  previoue songs starts
 
-        const preSong = () => {
+
+
+        pre.onclick = function() {
             songsIndex = (songsIndex - 1 + songs.length) % songs.length
             loadsongs(songs[songsIndex])
             play.classList.remove("fa-play")
@@ -406,12 +398,6 @@
 
 
         }
-
-
-
-
-
-        pre.addEventListener("click", preSong)
     </script>
 </body>
 
