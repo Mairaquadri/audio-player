@@ -9,144 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Manrope&family=Nunito:wght@200;400&display=swap" rel="stylesheet">
-    <title>AudioPlayer</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>AudioPlayer copy</title>
 </head>
-<style>
-    body {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Lato', sans-serif;
-    }
-    
-    .container {
-        background-color: rgb(247, 176, 176);
-        max-width: 300px;
-        /* height: 50vh; */
-        padding: 25px 35px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        border-radius: 5px;
-    }
-    
-    .nav {
-        /* border: 2px solid beige; */
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        align-items: center;
-    }
-    
-    .nav i,
-    .controls i {
-        border: 2px solid beige;
-        font-size: 20px;
-        background-color: white;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: #f53192;
-    }
-    
-    .controls {
-        display: flex;
-        flex-direction: row;
-        /* border: 2px solid black; */
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        width: 60%;
-        margin-top: 30px;
-    }
-    
-    .controls :nth-child(2) {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .image {
-        border: 10px solid beige;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        align-items: center;
-    }
-    
-    .image img {
-        width: 230px;
-        height: 230px;
-        border-radius: 50%;
-    }
-    
-    .artist {
-        line-height: 8px;
-    }
-    
-    .song {
-        /* border: 2px solid black; */
-        width: 100%;
-    }
-    
-    #progress {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 6px;
-        background: #f53192;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    #progress::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        background: #f53192;
-        height: 30px;
-        width: 30px;
-        border-radius: 50px;
-        border: 8px solid #fff;
-    }
-    
-    audio {
-        /* display: none; */
-    }
-    
-    .girl {
-        animation: mymove 15s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-        animation-play-state: running;
-    }
-    
-    @keyframes mymove {
-        from {
-            transform: rotate(0deg)
-        }
-        to {
-            transform: rotate(360deg)
-        }
-    }
-    
-    .stop {
-        animation-play-state: paused;
-    }
-    
-    #time {
-        border: 2px solid black;
-        width: 100%;
-    }
-</style>
+
 
 
 
@@ -160,49 +26,46 @@
             <i class="fa-solid fa-bars"></i>
         </div>
         <div class="image">
-            <img src="./image.webp" alt="" id="girl">
+            <img src="./images/image_1.jpg" alt="" id="img">
         </div>
 
         <div class="artist">
-            <h3>DREAMS</h3>
-            <p>Unknuwn</p>
+            <h3 id="song_name">DREAMS</h3>
+            <p id="artist_name">Unknuwn</p>
         </div>
         <div class="song">
             <audio controls id="audio" onended="m()">
-        <source src="./dreams.mp3" type="audio/mpeg">
+        <source src="./music/drive1.mp3" type="audio/mpeg">
     </audio>
+            <!-- <audio src="./music/drive1.mp3" onended="m()" id="source"></audio> -->
             <input type="range" value="0" id="progress">
         </div>
-        <div id="time">
-            <span id="min">0</span>
+        <!-- <div id="time">
+            <span id="min">00</span>
             <span>:</span>
             <span id="sec">00</span>
             <span>/</span>
             <span>3</span>
             <span>:</span>
             <span>30</span>
-        </div>
+        </div> -->
         <div class="controls">
-            <i class="fa-solid fa-backward"></i>
+            <i class="fa-solid fa-backward" id="pre"></i>
             <i class="fa-solid fa-play" id="play" onclick="song_play() "></i>
-            <i class="fa-solid fa-forward"></i>
+            <i class="fa-solid fa-forward" id="next"></i>
         </div>
     </div>
 
 
     <script>
         var play = document.getElementById("play")
-        var audio = document.getElementById("audio")
+        var music = document.getElementById("audio")
         var girl_pro = document.querySelector("img")
         var min = document.getElementById("min")
         var sec = document.getElementById("sec")
         var time = document.getElementById("time")
-        girl_pro.style.animationPlayState = 'running';
-
-
-
-
         var progress = document.getElementById("progress")
+
 
         // function to play music starts
         function song_play() {
@@ -210,74 +73,68 @@
             if (play.classList.contains("fa-play")) {
                 play.classList.remove("fa-play")
                 play.classList.add("fa-pause")
-                audio.play()
+                music.play()
                 bar()
                 toggleInterval()
                 rotateImg()
                 girl_pro.style.animationPlayState = 'running';
-
-
-
-
-
-
             } else {
                 play.classList.add("fa-play")
                 play.classList.remove("fa-pause")
-                audio.pause()
+                music.pause()
                 toggleInterval()
                 rotateImg()
                 girl_pro.style.animationPlayState = 'paused';
 
 
             }
-
-
         }
         // function to play music ends
 
 
         // function to move progress bar according to song duration starts
         function bar() {
-            progress.max = audio.duration
-            progress.value = audio.currentTime
+            progress.max = music.duration
+            progress.value = music.currentTime
+
         }
         setInterval(() => {
-            progress.value = audio.currentTime
+            progress.value = music.currentTime
         }, 500)
         progress.onclick = function() {
                 audio.currentTime = progress.value
+                    // toggleInterval() = audio.currentTime
+
+
+
+
 
             }
             // function to move progress bar according to song duration ends
 
 
-        // function to rotate image
+        // function to rotate image start
         function rotateImg() {
 
             girl_pro.classList.add('girl')
 
 
         }
+        // function to rotate image ends
 
-
-
-        function m() {
-            play.classList.add("fa-play")
+        //function to stop image rotation,pause to play button and stop timing srart
+        music.onended = function() {
             girl_pro.style.animationPlayState = 'paused';
-
-            play.classList.remove("fa-pause")
-                // clearInterval(toggleInterval())
+            play.classList.replace("fa-pause", "fa-play")
+            toggleInterval()
         }
 
+        //function to stop image rotation,pause to play button and stop timing ends
 
-
-
-        // function to stop image rotate and  change image pause to play end ends
 
 
         // function to start and stop watch on toggle start
-        var intervalId;
+        // var intervalId;
         var isIntervalRunning = false;
 
         nums = 1
@@ -293,16 +150,119 @@
 
                     sec.innerHTML = nums
                     min.innerHTML = numm
+                    increase0inS()
+                    increase0inM()
                     if (nums >= 60) {
                         nums = 1
                         numm++
+
                     } else {
-                        nums++
+                        "0" + nums++
 
                     }
                 }, 1000);
                 isIntervalRunning = true;
             }
+
+            //function to increase 0 before sec and min start
+
+
+            function increase0inS() {
+                if (nums < 10) {
+                    sec.innerHTML = "0" + nums
+
+                }
+            }
+
+            function increase0inM() {
+                if (numm < 10) {
+                    min.innerHTML = "0" + numm
+
+                }
+            }
+
+
+        }
+        //function to increase 0 before sec and min start
+
+
+        // function to change songs start
+        var girl_pro = document.querySelector("img")
+        var artist_name = document.getElementById("artist_name")
+        var song_name = document.getElementById("song_name")
+        var pre = document.getElementById("pre")
+        var next = document.getElementById("next")
+        var music = document.getElementById("audio")
+        console.log(audio)
+
+
+
+        const songs = [{
+
+            name: "drive1",
+            image: "image_1",
+            sn: "DREAMS",
+            an: "Unknuwn",
+        }, {
+            name: "drive2",
+            image: "image_2",
+            sn: "BREAKBEAT",
+            an: "Rockot",
+        }, {
+            name: "drive3",
+            image: "image_3",
+            sn: "DONT STOP ME",
+            an: "Alexi",
+        }]
+
+        const loadsongs = (songs) => {
+            song_name.innerHTML = songs.sn
+            artist_name.textContent = songs.an
+            girl_pro.src = "images/" + songs.image + ".jpg"
+            music.src = ("music/" + songs.name + ".mp3")
+
+        }
+
+
+
+        // function to change songs ends
+        var pre = document.getElementById("pre")
+        var next = document.getElementById("next")
+        songsIndex = 0
+
+
+        // function to change  next songs starts
+        next.onclick = function() {
+
+            songsIndex = (songsIndex + 1) % songs.length
+            loadsongs(songs[songsIndex])
+            play.classList.remove("fa-play")
+            play.classList.add("fa-pause")
+            music.play()
+            bar()
+            rotateImg()
+            girl_pro.style.animationPlayState = 'running';
+
+
+        }
+
+        // function to change  next songs starts
+
+        // function to change  previoue songs starts
+
+
+
+        pre.onclick = function() {
+            songsIndex = (songsIndex - 1 + songs.length) % songs.length
+            loadsongs(songs[songsIndex])
+            play.classList.remove("fa-play")
+            play.classList.add("fa-pause")
+            music.play()
+            bar()
+            rotateImg()
+            girl_pro.style.animationPlayState = 'running';
+
+
         }
     </script>
 </body>
